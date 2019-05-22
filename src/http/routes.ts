@@ -1,7 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { Config } from '../config';
 import { InversifyContainer, TYPES } from '../container';
 import { ExampleController } from './controllers/exampleController';
+import * as express from 'express';
 
 export class Routes {
   private conf: Config = InversifyContainer.get<Config>(TYPES.Conf);
@@ -13,7 +14,7 @@ export class Routes {
     this.versionApi = this.conf.apiVersion;
   }
 
-  public routes(app) {
+  public routes(app: express.Express) {
     app.route('/').get((req: Request, res: Response) => {
       res.status(200).send({
         message: `Api version ${this.versionApi}`
