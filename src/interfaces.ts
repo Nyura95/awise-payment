@@ -1,4 +1,4 @@
-import { ExampleModel } from './models/ExampleModel';
+import { TblLogPaymentModel } from './models/TblLogPaymentModel';
 
 export interface ILogger {
   name: string;
@@ -115,10 +115,10 @@ export interface IRedisHandler {
 
 export interface IMySQLHandler {
   Init();
-  Example(): Promise<ExampleModel[] | null>;
+  Example(): Promise<TblLogPaymentModel[] | null>;
 }
 
 export interface IMsSQLHandler {
   Init();
-  Example(id: number): Promise<ExampleModel[] | null>;
+  Example(id: number): Promise<TblLogPaymentModel[] | null>;
 }

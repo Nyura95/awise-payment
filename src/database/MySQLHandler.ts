@@ -4,7 +4,7 @@ import * as mysql from 'mysql2';
 import { ILogger, IMySQLHandler } from '../interfaces';
 import { Config } from '../config';
 import { InversifyContainer, TYPES } from '../container/index';
-import { ExampleModel } from '../models/ExampleModel';
+import { TblLogPaymentModel } from '../models/TblLogPaymentModel';
 
 @injectable()
 export class MySQLHandler implements IMySQLHandler {
@@ -24,15 +24,15 @@ export class MySQLHandler implements IMySQLHandler {
     this.log.info(`Successfully logged to MySQL database on ${this.conf.mysqlHost}`);
   }
 
-  public Example(): Promise<ExampleModel[] | null> {
-    return new Promise<ExampleModel[] | null>(async (resolve, reject) => {
+  public Example(): Promise<TblLogPaymentModel[] | null> {
+    return new Promise<TblLogPaymentModel[] | null>(async (resolve, reject) => {
       try {
         const promisePool = this.connection.promise();
         const [rows] = await promisePool.execute(`select * from example`);
         if (rows.length > 0) {
-          const examples: ExampleModel[] = [];
+          const examples: TblLogPaymentModel[] = [];
           for (const row of rows) {
-            examples.push(new ExampleModel(row));
+            examples.push(new TblLogPaymentModel(row));
           }
           resolve(examples);
         } else {
