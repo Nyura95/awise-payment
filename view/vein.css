@@ -1,0 +1,171 @@
+.bloodNetwork {
+  position: absolute;
+  top:50%;
+  left:50%;
+  height: 200px;
+  width: 200px;
+}
+
+
+.topRight {
+  border-top-right-radius: 150px 100px;
+  border-top: 1px solid green;
+
+  -webkit-animation:blood-top 10s infinite linear;
+  -moz-animation:blood-top 10s infinite linear;
+  -ms-animation:blood-top 10s infinite linear;
+  -o-animation:blood-top 10s infinite linear;
+  animation:blood-top 10s infinite linear;
+}
+
+.rotate-xs {
+  -ms-transform: rotate(15deg); /* IE 9 */
+  -webkit-transform: rotate(15deg); /* Chrome, Safari, Opera */
+  transform: rotate(15deg);
+}
+
+.rotate-md {
+  -ms-transform: rotate(50deg); /* IE 9 */
+  -webkit-transform: rotate(50deg); /* Chrome, Safari, Opera */
+  transform: rotate(50deg);
+}
+
+.rotate-xl {
+  -ms-transform: rotate(80deg); /* IE 9 */
+  -webkit-transform: rotate(80deg); /* Chrome, Safari, Opera */
+  transform: rotate(80deg);
+}
+
+.topLeft {
+  border-top-left-radius: 150px 100px;
+  border-top: 1px solid green;
+
+  -webkit-animation:blood-top 10s infinite linear;
+  -moz-animation:blood-top 10s infinite linear;
+  -ms-animation:blood-top 10s infinite linear;
+  -o-animation:blood-top 10s infinite linear;
+  animation:blood-top 10s infinite linear;
+}
+
+.bottomRight {
+  border-bottom-right-radius: 150px 100px;
+  border-bottom: 1px solid green;
+
+  -webkit-animation:blood-bottom 10s infinite linear;
+  -moz-animation:blood-bottom 10s infinite linear;
+  -ms-animation:blood-bottom 10s infinite linear;
+  -o-animation:blood-bottom 10s infinite linear;
+  animation:blood-bottom 10s infinite linear;
+}
+
+.bottomLeft {
+  border-bottom-left-radius: 150px 100px;
+  border-bottom: 1px solid green;
+
+  -webkit-animation:blood-bottom 10s infinite linear;
+  -moz-animation:blood-bottom 10s infinite linear;
+  -ms-animation:blood-bottom 10s infinite linear;
+  -o-animation:blood-bottom 10s infinite linear;
+  animation:blood-bottom 10s infinite linear;
+}
+
+.vein {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: white;
+}
+
+@-webkit-keyframes blood-top {
+  10% {
+    border-top: 1px solid green;
+  }
+  11% {
+    border-top: 3px solid green;
+  }
+  13% {
+    border-top: 1px solid green;
+  }
+}
+@-moz-keyframes blood-top {
+  10% {
+    border-top: 1px solid green;
+  }
+  11% {
+    border-top: 3px solid green;
+  }
+  13% {
+    border-top: 1px solid green;
+  }
+}
+
+@-ms-keyframes blood-top {
+  10% {
+    border-top: 1px solid green;
+  }
+  11% {
+    border-top: 3px solid green;
+  }
+  13% {
+    border-top: 1px solid green;
+  }
+}
+@keyframes blood-top {
+  10% {
+    border-top: 1px solid green;
+  }
+  11% {
+    border-top: 3px solid green;
+  }
+  13% {
+    border-top: 1px solid green;
+  }
+}
+
+@-webkit-keyframes blood-bottom {
+  10% {
+    border-bottom: 1px solid green;
+  }
+  11% {
+    border-bottom: 3px solid green;
+  }
+  13% {
+    border-bottom: 1px solid green;
+  }
+}
+
+@-moz-keyframes blood-bottom {
+  10% {
+    border-bottom: 1px solid green;
+  }
+  11% {
+    border-bottom: 3px solid green;
+  }
+  13% {
+    border-bottom: 1px solid green;
+  }
+}
+
+@-ms-keyframes blood-bottom {
+  10% {
+    border-bottom: 1px solid green;
+  }
+  11% {
+    border-bottom: 3px solid green;
+  }
+  13% {
+    border-bottom: 1px solid green;
+  }
+}
+
+@keyframes blood-bottom {
+  10% {
+    border-bottom: 1px solid green;
+  }
+  11% {
+    border-bottom: 3px solid green;
+  }
+  13% {
+    border-bottom: 1px solid green;
+  }
+}

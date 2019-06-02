@@ -1,0 +1,31 @@
+###############################################
+### Configuration file for the microservice ###
+###############################################
+
+# Configure http
+http:
+  port: 8080
+# Configure databases
+database:
+  appointrip:
+    host: '5.135.167.23'
+    username: 'acourapied'
+    password: 'Yfful95df'
+    db: 'APPNTRP'
+    dialect: 'mysql'
+    models: 'appointrip'
+# Configure logger
+logger:
+  levelLog: 0
+  table:
+    center: true,
+    borderChar: '|'
+    lineChar: '-'
+    crossingChar: '+'
+    minSpace: 35
+  format: 'DD/MM/YYYY - HH:mm:ss'
+  loggers: [
+    { 'name': 'info', 'color': 'blue', 'save': false, 'level': 1 },
+    { 'name': 'error', 'color': 'red', 'save': false , 'level': 3 },
+    { 'name': 'debug', 'color': 'green', 'save': false, 'level': 0 }
+  ]

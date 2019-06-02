@@ -4,6 +4,8 @@ CREATE TABLE tbl_token_payment
   auto_increment,
   token varchar
   (255) not null,
+  flag_delete int
+  (1) not null,
   statut int
   (5) not null,
   lifetime_max datetime not null,

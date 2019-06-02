@@ -1,0 +1,223 @@
+html {
+  position: relative;
+}
+.container {
+  /*Position*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /*divers*/
+  overflow:hidden;
+}
+.container .text {
+  /*position*/
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /*font*/
+  color: black;
+  background-color: white;
+  font-weight: bold;
+  /*size*/
+  width: 231px;
+  height: 231px;
+  /*border*/
+  border-radius: 100%;
+
+  -webkit-animation:heart 10s infinite linear;
+  -moz-animation:heart 10s infinite linear;
+  -ms-animation:heart 10s infinite linear;
+  -o-animation:heart 10s infinite linear;
+  animation:heart 10s infinite linear;
+}
+.container .text span {
+  /*position*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /*font*/
+  text-align: center;
+  font-family: system-ui;
+  font-size: xx-large;
+  font-weight: 300;
+}
+.container .round_color{
+  /*size*/
+  width:250px;
+  height:250px;
+  /*color*/
+  background: linear-gradient(white, lightgreen);
+  /*animation all browser*/
+  -webkit-animation:load_dix 5s infinite linear;
+  -moz-animation:load_dix 5s infinite linear;
+  -ms-animation:load_dix 5s infinite linear;
+  -o-animation:load_dix 5s infinite linear;
+  animation:load_dix 5s infinite linear;
+  /*border*/
+  border-radius:100%;
+}
+
+@-webkit-keyframes load_dix{
+  0% {
+    -webkit-transform:rotate(0deg);
+    -moz-transform:rotate(0deg);
+    -ms-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  30% {
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg);
+    -ms-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
+  70% {
+    -webkit-transform:rotate(620deg);
+    -moz-transform:rotate(620deg);
+    -ms-transform:rotate(620deg);
+    transform:rotate(620deg);
+  }
+  100% {
+    -webkit-transform:rotate(720deg);
+    -moz-transform:rotate(720deg);
+    -ms-transform:rotate(720deg);
+    transform:rotate(720deg);
+  }
+}
+@-moz-keyframes load_dix {
+  0% {
+    -webkit-transform:rotate(0deg);
+    -moz-transform:rotate(0deg);
+    -ms-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  30% {
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg);
+    -ms-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
+  70% {
+    -webkit-transform:rotate(620deg);
+    -moz-transform:rotate(620deg);
+    -ms-transform:rotate(620deg);
+    transform:rotate(620deg);
+  }
+  100% {
+    -webkit-transform:rotate(720deg);
+    -moz-transform:rotate(720deg);
+    -ms-transform:rotate(720deg);
+    transform:rotate(720deg);
+  }
+}
+@-ms-keyframes load_dix {
+  0% {
+    -webkit-transform:rotate(0deg);
+    -moz-transform:rotate(0deg);
+    -ms-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  30% {
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg);
+    -ms-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
+  70% {
+    -webkit-transform:rotate(620deg);
+    -moz-transform:rotate(620deg);
+    -ms-transform:rotate(620deg);
+    transform:rotate(620deg);
+  }
+  100% {
+    -webkit-transform:rotate(720deg);
+    -moz-transform:rotate(720deg);
+    -ms-transform:rotate(720deg);
+    transform:rotate(720deg);
+  }
+}
+@keyframes load_dix {
+  0% {
+    -webkit-transform:rotate(0deg);
+    -moz-transform:rotate(0deg);
+    -ms-transform:rotate(0deg);
+    transform:rotate(0deg);
+  }
+  30% {
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg);
+    -ms-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
+  70% {
+    -webkit-transform:rotate(620deg);
+    -moz-transform:rotate(620deg);
+    -ms-transform:rotate(620deg);
+    transform:rotate(620deg);
+  }
+  100% {
+    -webkit-transform:rotate(720deg);
+    -moz-transform:rotate(720deg);
+    -ms-transform:rotate(720deg);
+    transform:rotate(720deg);
+  }
+}
+@-webkit-keyframes heart {
+  10% {
+    width: 231px;
+    height: 231px;
+  }
+  10.5% {
+    width: 240px;
+    height: 240px;
+  }
+  12% {
+    width: 231px;
+    height: 231px;
+  }
+}
+@-moz-keyframes heart {
+  10% {
+    width: 231px;
+    height: 231px;
+  }
+  10.5% {
+    width: 240px;
+    height: 240px;
+  }
+  12% {
+    width: 231px;
+    height: 231px;
+  }
+}
+@-ms-keyframes heart {
+  10% {
+    width: 231px;
+    height: 231px;
+  }
+  10.5% {
+    width: 240px;
+    height: 240px;
+  }
+  12% {
+    width: 231px;
+    height: 231px;
+  }
+}
+@keyframes heart {
+  10% {
+    width: 231px;
+    height: 231px;
+  }
+  10.5% {
+    width: 240px;
+    height: 240px;
+  }
+  12% {
+    width: 231px;
+    height: 231px;
+  }
+}
