@@ -24,18 +24,22 @@ exports.createCharge = (amount, description, source, receipt_email) => {
   });
 };
 
+// https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_EiS76uOQqCGA1oIJHkqBL0fQh7gK0sDb&scope=read_write
+
 /**
  * create a connected account
  * @param {string} country
  * @param {string} email
  */
-exports.createAccount = (description, email) => {
+exports.createAccount = (account_token) => {
   return new Promise(async (resolve, reject) => {
     try {
       const account = await stripe.accounts.create({
-        country: 'US',
-        type: 'custom',
-        requested_capabilities: ['card_payments']
+        type: 'standard',
+        country: 'FR',
+        email: 'bob@example.com',
+        requested_capabilities: ['card_payments'],
+        account_token
       });
       resolve(account);
     } catch (err) {
@@ -43,3 +47,6 @@ exports.createAccount = (description, email) => {
     }
   });
 };
+
+
+// https://stripe.com/docs/connect/charges-transfers
