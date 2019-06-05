@@ -25,28 +25,19 @@ exports.createCharge = (amount, description, source, receipt_email) => {
 };
 
 // https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_EiS76uOQqCGA1oIJHkqBL0fQh7gK0sDb&scope=read_write
-
-/**
- * create a connected account
- * @param {string} country
- * @param {string} email
- */
-exports.createAccount = (account_token) => {
-  return new Promise(async (resolve, reject) => {
+exports.transfertToGuide = (amount, destination) => {
+  return new Promise((resolve, reject) => {
     try {
-      const account = await stripe.accounts.create({
-        type: 'standard',
-        country: 'FR',
-        email: 'bob@example.com',
-        requested_capabilities: ['card_payments'],
-        account_token
+      const transfers = await stripe.transfers.create({
+        destination,
+        amount,
+        currency: "eur"
       });
-      resolve(account);
+      resolve(transfers);
     } catch (err) {
       reject(err);
     }
   });
-};
-
+}
 
 // https://stripe.com/docs/connect/charges-transfers
