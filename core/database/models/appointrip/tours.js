@@ -57,7 +57,8 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		price_additional_fees: {
 			type: DataTypes.INTEGER(11),
-			allowNull: true
+			allowNull: true,
+			defaultValue: '0'
 		},
 		price_additional_fees_desc: {
 			type: DataTypes.TEXT,

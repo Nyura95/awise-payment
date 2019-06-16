@@ -29,3 +29,5 @@ logger:
     { 'name': 'error', 'color': 'red', 'save': false , 'level': 3 },
     { 'name': 'debug', 'color': 'green', 'save': false, 'level': 0 }
   ]
+stripe:
+  token: sk_test_4YLXzxlalGywuHnjIIJBtFTJ

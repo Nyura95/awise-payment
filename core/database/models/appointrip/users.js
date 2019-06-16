@@ -75,6 +75,10 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING(255),
 			allowNull: true
 		},
+		country: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
 		wallet_balance: {
 			type: DataTypes.DECIMAL,
 			allowNull: true,
@@ -132,6 +136,19 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			defaultValue: '0'
 		},
+		is_hotel: {
+			type: DataTypes.INTEGER(5),
+			allowNull: false,
+			defaultValue: '0'
+		},
+		discount_code: {
+			type: DataTypes.STRING(11),
+			allowNull: true
+		},
+		id_discount_code: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true
+		},
 		isVerified: {
 			type: DataTypes.INTEGER(5),
 			allowNull: true,
@@ -171,6 +188,15 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(5),
 			allowNull: true,
 			defaultValue: '1'
+		},
+		is_welcome_code: {
+			type: DataTypes.INTEGER(5),
+			allowNull: true,
+			defaultValue: '0'
+		},
+		welcome_code: {
+			type: DataTypes.STRING(255),
+			allowNull: true
 		},
 		su_id: {
 			type: DataTypes.STRING(255),

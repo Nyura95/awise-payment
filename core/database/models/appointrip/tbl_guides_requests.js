@@ -29,6 +29,10 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.TEXT,
 			allowNull: true
 		},
+		pro_card: {
+			type: DataTypes.TEXT,
+			allowNull: true
+		},
 		selfie: {
 			type: DataTypes.TEXT,
 			allowNull: false

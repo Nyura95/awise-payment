@@ -1,37 +1,33 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('tbl_guides_documents', {
-		id_guide_document: {
+	return sequelize.define('tbl_discount_codes_log', {
+		id_discount_codes_log: {
 			type: DataTypes.INTEGER(11).UNSIGNED,
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		id_user: {
+		id_discount_code: {
 			type: DataTypes.INTEGER(11),
-			allowNull: false
-		},
-		idcard: {
-			type: DataTypes.TEXT,
-			allowNull: false
-		},
-		selfie: {
-			type: DataTypes.TEXT,
-			allowNull: false
-		},
-		idcard2: {
-			type: DataTypes.TEXT,
 			allowNull: true
 		},
-		pro_card: {
-			type: DataTypes.TEXT,
-			allowNull: true
-		},
-		phone: {
+		discount_code: {
 			type: DataTypes.STRING(255),
 			allowNull: false,
 			defaultValue: ''
+		},
+		id_booking: {
+			type: DataTypes.INTEGER(11).UNSIGNED,
+			allowNull: false
+		},
+		id_user: {
+			type: DataTypes.INTEGER(11).UNSIGNED,
+			allowNull: false
+		},
+		id_tour: {
+			type: DataTypes.INTEGER(11).UNSIGNED,
+			allowNull: false
 		},
 		created_at: {
 			type: DataTypes.DATE,
@@ -42,7 +38,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false
 		}
 	}, {
-		tableName: 'tbl_guides_documents',
+		tableName: 'tbl_discount_codes_log',
 		underscored: true,
 		timestamps: false
 	});

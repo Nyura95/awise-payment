@@ -1,15 +1,9 @@
 const { createAccountStripe } = require('../../../helpers/request');
 
 module.exports = router => {
-  router.post('/transfer', async (req, res) => {
+  router.post('/connect', async (req, res) => {
     try {
-
-      if (result.error) {
-
-      }
-
-      // return res.customJson({ ...result }, 400, 'Error call stripe');
-      res.customJson('ok');
+      const { code, error } = req.params;
     } catch (err) {
       return res.customJson({ message: err.message }, 400, 'Error create account');
     }

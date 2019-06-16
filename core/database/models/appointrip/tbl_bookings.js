@@ -29,6 +29,11 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			defaultValue: '0'
 		},
+		booking_number: {
+			type: DataTypes.STRING(255),
+			allowNull: false,
+			defaultValue: ''
+		},
 		tour_date: {
 			type: DataTypes.DATEONLY,
 			allowNull: false
@@ -51,12 +56,32 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true
 		},
 		price_unit: {
-			type: DataTypes.INTEGER(11),
+			type: DataTypes.DECIMAL,
 			allowNull: false
 		},
 		price_total: {
-			type: DataTypes.INTEGER(11),
+			type: DataTypes.DECIMAL,
 			allowNull: false
+		},
+		price_paid: {
+			type: DataTypes.DECIMAL,
+			allowNull: false
+		},
+		price_additional_fees: {
+			type: DataTypes.DECIMAL,
+			allowNull: true
+		},
+		discount_code: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		discount_amount: {
+			type: DataTypes.DECIMAL,
+			allowNull: true
+		},
+		discount_is_fixed: {
+			type: DataTypes.INTEGER(4),
+			allowNull: true
 		},
 		people: {
 			type: DataTypes.INTEGER(11),
@@ -77,18 +102,40 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		is_displayed: {
 			type: DataTypes.INTEGER(11),
-			allowNull: true,
+			allowNull: false,
 			defaultValue: '0'
 		},
 		is_reviewed: {
 			type: DataTypes.INTEGER(11),
-			allowNull: true,
+			allowNull: false,
 			defaultValue: '0'
 		},
 		is_paid: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			defaultValue: '0'
+		},
+		is_guide_notified: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			defaultValue: '0'
+		},
+		is_tourist_notified_one_day_before: {
+			type: DataTypes.INTEGER(4),
+			allowNull: false,
+			defaultValue: '0'
+		},
+		is_refunded: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true
+		},
+		who_must_be_refunded: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		refunded_at: {
+			type: DataTypes.DATE,
+			allowNull: true
 		},
 		type: {
 			type: DataTypes.STRING(255),
