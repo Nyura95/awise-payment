@@ -9,7 +9,7 @@
 
 .topRight {
   border-top-right-radius: 150px 100px;
-  border-top: 1px solid green;
+  border-top: 1px solid purple;
 
   -webkit-animation:blood-top 10s infinite linear;
   -moz-animation:blood-top 10s infinite linear;
@@ -38,7 +38,7 @@
 
 .topLeft {
   border-top-left-radius: 150px 100px;
-  border-top: 1px solid green;
+  border-top: 1px solid purple;
 
   -webkit-animation:blood-top 10s infinite linear;
   -moz-animation:blood-top 10s infinite linear;
@@ -49,7 +49,7 @@
 
 .bottomRight {
   border-bottom-right-radius: 150px 100px;
-  border-bottom: 1px solid green;
+  border-bottom: 1px solid purple;
 
   -webkit-animation:blood-bottom 10s infinite linear;
   -moz-animation:blood-bottom 10s infinite linear;
@@ -60,7 +60,7 @@
 
 .bottomLeft {
   border-bottom-left-radius: 150px 100px;
-  border-bottom: 1px solid green;
+  border-bottom: 1px solid purple;
 
   -webkit-animation:blood-bottom 10s infinite linear;
   -moz-animation:blood-bottom 10s infinite linear;
@@ -78,94 +78,94 @@
 
 @-webkit-keyframes blood-top {
   10% {
-    border-top: 1px solid green;
+    border-top: 1px solid purple;
   }
   11% {
-    border-top: 3px solid green;
+    border-top: 3px solid purple;
   }
   13% {
-    border-top: 1px solid green;
+    border-top: 1px solid purple;
   }
 }
 @-moz-keyframes blood-top {
   10% {
-    border-top: 1px solid green;
+    border-top: 1px solid purple;
   }
   11% {
-    border-top: 3px solid green;
+    border-top: 3px solid purple;
   }
   13% {
-    border-top: 1px solid green;
+    border-top: 1px solid purple;
   }
 }
 
 @-ms-keyframes blood-top {
   10% {
-    border-top: 1px solid green;
+    border-top: 1px solid purple;
   }
   11% {
-    border-top: 3px solid green;
+    border-top: 3px solid purple;
   }
   13% {
-    border-top: 1px solid green;
+    border-top: 1px solid purple;
   }
 }
 @keyframes blood-top {
   10% {
-    border-top: 1px solid green;
+    border-top: 1px solid purple;
   }
   11% {
-    border-top: 3px solid green;
+    border-top: 3px solid purple;
   }
   13% {
-    border-top: 1px solid green;
+    border-top: 1px solid purple;
   }
 }
 
 @-webkit-keyframes blood-bottom {
   10% {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid purple;
   }
   11% {
-    border-bottom: 3px solid green;
+    border-bottom: 3px solid purple;
   }
   13% {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid purple;
   }
 }
 
 @-moz-keyframes blood-bottom {
   10% {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid purple;
   }
   11% {
-    border-bottom: 3px solid green;
+    border-bottom: 3px solid purple;
   }
   13% {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid purple;
   }
 }
 
 @-ms-keyframes blood-bottom {
   10% {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid purple;
   }
   11% {
-    border-bottom: 3px solid green;
+    border-bottom: 3px solid purple;
   }
   13% {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid purple;
   }
 }
 
 @keyframes blood-bottom {
   10% {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid purple;
   }
   11% {
-    border-bottom: 3px solid green;
+    border-bottom: 3px solid purple;
   }
   13% {
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid purple;
   }
 }

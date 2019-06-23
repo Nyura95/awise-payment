@@ -50,7 +50,7 @@ html {
   width:250px;
   height:250px;
   /*color*/
-  background: linear-gradient(white, lightgreen);
+  background: linear-gradient(white, rgb(230, 144, 238));
   /*animation all browser*/
   -webkit-animation:load_dix 5s infinite linear;
   -moz-animation:load_dix 5s infinite linear;
