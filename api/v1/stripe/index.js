@@ -8,17 +8,13 @@ module.exports = router => {
   router.post('/payment', checkToken, async (req, res) => {
     try {
 
-      if (!exists(['amount', 'card', 'expMonth', 'expYear', 'cvc'], req.body)) {
-        return res.customJson({}, 400, 'Error body (token)');
-      }
-
-      const { amount, card, expMonth, expYear, cvc } = req.body;
+      const { amount, card, expMonth, expYear, cvc, token } = req.body;
 
       const db = getDatabaseModels('appointrip');
       logger.info(`New payment !`);
 
       logger.debug(`create a payment method ...`);
-      const paymentMethod = await createPaymentMethod({ card: card, expMonth, expYear, cvc });
+      const paymentMethod = await createPaymentMethod({ card, expMonth, expYear, cvc, token });
       if (paymentMethod.error) {
         logger.error(`error payment method :/`);
         console.log(paymentMethod);
