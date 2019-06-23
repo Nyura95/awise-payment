@@ -47,6 +47,10 @@ module.exports = function(sequelize, DataTypes) {
 		updated_at: {
 			type: DataTypes.DATE,
 			allowNull: false
+		},
+		id_card: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true
 		}
 	}, {
 		tableName: 'tbl_guides',

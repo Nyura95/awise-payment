@@ -37,9 +37,8 @@ module.exports = function(sequelize, DataTypes) {
 			defaultValue: ''
 		},
 		description: {
-			type: DataTypes.STRING(255),
-			allowNull: false,
-			defaultValue: ''
+			type: DataTypes.TEXT,
+			allowNull: false
 		},
 		minPpl: {
 			type: DataTypes.STRING(255),

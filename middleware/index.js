@@ -26,7 +26,6 @@ exports.checkToken = async (req, res, next) => {
     }
     req.user = user;
     next();
-
   } catch (err) {
     return res.customJson({ message: err.message }, 500);
   }
