@@ -2,7 +2,6 @@ const { createPaymentMethod, createPaymentIntent } = require('../../../helpers/r
 const { getDatabaseModels } = require('../../../core/database');
 const { getDateNowUtc } = require('../../../helpers/moment');
 const { checkToken } = require('../../../middleware');
-const { exists } = require('../../../helpers/object');
 
 module.exports = router => {
   router.post('/payment', checkToken, async (req, res) => {
