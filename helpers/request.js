@@ -25,7 +25,7 @@ exports.createPaymentMethod = payload => {
           ...form
         },
         headers: {
-          'Authorization': config.stripe.token
+          'Authorization': `Bearer ${config.stripe.token}`
         }
       }, (error, _, body) => {
         if (error) {
@@ -57,7 +57,7 @@ exports.createPaymentIntent = (amount, paymentMethod) => {
           confirm: true
         },
         headers: {
-          'Authorization': config.stripe.token
+          'Authorization': `Bearer ${config.stripe.token}`
         }
       }, (error, _, body) => {
         if (error) {
