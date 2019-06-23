@@ -8,16 +8,24 @@ const request = require('request');
 exports.createPaymentMethod = payload => {
   return new Promise((resolve, reject) => {
     try {
+
+      const form = {};
+      if (payload.token) {
+        form['card[token]'] = payload.token
+      } else {
+        form['card[number]'] = payload.card;
+        form['card[exp_month]'] = payload.expMonth;
+        form['card[exp_year]'] = payload.expYear;
+        form['card[cvc]'] = payload.cvc;
+      }
+
       request.post('https://api.stripe.com/v1/payment_methods', {
         form: {
           type: 'card',
-          'card[number]': payload.card,
-          'card[exp_month]': payload.expMonth,
-          'card[exp_year]': payload.expYear,
-          'card[cvc]': payload.cvc,
+          ...form
         },
         headers: {
-          'Authorization': 'Bearer sk_test_4YLXzxlalGywuHnjIIJBtFTJ'
+          'Authorization': config.stripe.token
         }
       }, (error, _, body) => {
         if (error) {
@@ -37,7 +45,7 @@ exports.createPaymentMethod = payload => {
  * @param paymentMethod string
  * @return object
  */
-exports.cratePaymentIntent = (amount, paymentMethod) => {
+exports.createPaymentIntent = (amount, paymentMethod) => {
   return new Promise((resolve, reject) => {
     try {
       request.post('https://api.stripe.com/v1/payment_intents', {
@@ -49,7 +57,7 @@ exports.cratePaymentIntent = (amount, paymentMethod) => {
           confirm: true
         },
         headers: {
-          'Authorization': 'Bearer sk_test_4YLXzxlalGywuHnjIIJBtFTJ'
+          'Authorization': config.stripe.token
         }
       }, (error, _, body) => {
         if (error) {

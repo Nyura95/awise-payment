@@ -1,4 +1,4 @@
-const { createPaymentMethod, cratePaymentIntent } = require('../../../helpers/request');
+const { createPaymentMethod, createPaymentIntent } = require('../../../helpers/request');
 const { getDatabaseModels } = require('../../../core/database');
 const { getDateNowUtc } = require('../../../helpers/moment');
 const { checkToken } = require('../../../middleware');
@@ -38,7 +38,7 @@ module.exports = router => {
       });
 
       logger.debug(`create a payment intent ...`);
-      const paymentIntent = await cratePaymentIntent(amount, paymentMethod.id);
+      const paymentIntent = await createPaymentIntent(amount, paymentMethod.id);
       if (paymentIntent.error) {
         logger.error(`error payment intent :/`);
         console.log(paymentIntent);
