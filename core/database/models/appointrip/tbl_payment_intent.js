@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 			autoIncrement: true
 		},
 		id_payment_intent: {
-			type: DataTypes.INTEGER(5),
+			type: DataTypes.STRING(255),
 			allowNull: false
 		},
 		object: {

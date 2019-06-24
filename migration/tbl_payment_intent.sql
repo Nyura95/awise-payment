@@ -2,8 +2,8 @@ create table tbl_payment_intent
 (
   id int(5) not null
   auto_increment,
-  id_payment_intent int
-  (5) not null,
+  id_payment_intent varchar
+  (255) not null,
   object varchar
   (255),
   amount int
@@ -27,7 +27,8 @@ create table tbl_payment_intent
   (255),
   id_user int
   (5) not null,
-  id_booking int(5) not null,
+  id_booking int
+  (5) not null,
   updated_at datetime,
   created_at datetime,
   primary key

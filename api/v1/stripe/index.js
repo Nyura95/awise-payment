@@ -25,13 +25,13 @@ module.exports = router => {
         logger.error(`Payment intent not found !`);
         return res.customJson({}, 400, 'Payment intent not found for this user !');
       }
-
+      console.log(paymentIntent.id_payment_intent)
       logger.debug(`retrieve the paymentIntent from stripe ...`);
       const intent = await retrievePaymentIntent(paymentIntent.id_payment_intent);
       if (intent.error) {
         logger.error(`Error retrieve payment intent :/`);
         console.log(intent);
-        return res.customJson({}, 400, intent.message);
+        return res.customJson({}, 400, intent.error.message);
       }
 
       if (intent.charges.data.length === 0) {
@@ -60,12 +60,11 @@ module.exports = router => {
       }
 
       const { amount } = req.body;
-
-      const transfert = await transfertToConnectAccount((amount * config.fees) / 100, req.user.su_id);
+      const transfert = await transfertToConnectAccount((parseInt(amount) * config.fees) / 100, req.user.su_id);
       if (transfert.error) {
         logger.error(`error transfert :/`);
         console.log(transfert);
-        return res.customJson({}, 400, transfert.message);
+        return res.customJson({}, 400, transfert.error.message);
       }
 
       logger.info(`Transfert success :)`);
@@ -91,7 +90,7 @@ module.exports = router => {
       if (account.error) {
         logger.error(`error connect account :/`);
         console.log(account);
-        return res.customJson({}, 400, account.message);
+        return res.customJson({}, 400, account.error.message);
       }
 
       logger.debug(`update account from database ...`);
@@ -120,7 +119,7 @@ module.exports = router => {
       if (paymentMethod.error) {
         logger.error(`error payment method :/`);
         console.log(paymentMethod);
-        return res.customJson({}, 400, paymentMethod.message);
+        return res.customJson({}, 400, paymentMethod.error.message);
       }
       logger.debug(`save payment method`);
       const savePaymentMethodawait = await db.tbl_payment_method.create({
@@ -140,11 +139,12 @@ module.exports = router => {
       if (paymentIntent.error) {
         logger.error(`error payment intent :/`);
         console.log(paymentIntent);
-        return res.customJson({}, 400, paymentIntent.message);
+        return res.customJson({}, 400, paymentIntent.error.message);
       }
       logger.debug(`save payment intent`);
+      console.log(paymentIntent)
       await db.tbl_payment_intent.create({
-        id_payment_intent: paymentMethod.id,
+        id_payment_intent: paymentIntent.id,
         object: paymentIntent.object,
         amount: paymentIntent.amount,
         capture_method: paymentIntent.capture_method,

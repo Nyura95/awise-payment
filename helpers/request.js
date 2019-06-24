@@ -229,7 +229,6 @@ const createPaymentIntent = (amount, paymentMethod, email) => {
             'payment_method_types[]': 'card',
             payment_method: paymentMethod,
             confirm: true,
-            manual: 'manual',
             receipt_email: email
           },
           headers: {
