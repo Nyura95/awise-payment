@@ -1,11 +1,41 @@
 const request = require('request');
 
 /**
- * Refund a charge
- * @param idCharge string
- * @return object
+ * @typedef {{
+ * error: {
+ *  code: string;
+ *  doc_url: string;
+ *  message: string;
+ *  param: string;
+ *  type: string;
+ * }
+ * }} IErrorStripe
  */
-exports.refundPayment = idCharge => {
+
+/**
+ * @typedef {{
+ *  id: string;
+ *  object: string;
+ *  amount: number;
+ *  balance_transaction: number | null;
+ *  charge: string;
+ *  created: number;
+ *  currency: string;
+ *  metadata: object;
+ *  reason: string | null;
+ *  receipt_number: number | null;
+ *  source_transfer_reversal: string | null;
+ *  status: string;
+ *  transfer_reversal: string | null;
+ * }} IRefundPayment
+ */
+/**
+ * Refund a charge
+ * @param {string} idCharge
+ * @version 1.0.0
+ * @return {IRefundPayment | IErrorStripe}
+ */
+const refundPayment = idCharge => {
   return new Promise((resolve, reject) => {
     try {
       request.post(
@@ -30,13 +60,14 @@ exports.refundPayment = idCharge => {
     }
   });
 };
+exports.refundPayment = refundPayment;
 
 /**
  * Retrieve a payment intent
- * @param idPaymentIntent string
- * @return object
+ * @param {string} idPaymentIntent
+ * @return {object}
  */
-exports.retrievePaymentIntent = idPaymentIntent => {
+const retrievePaymentIntent = idPaymentIntent => {
   return new Promise((resolve, reject) => {
     try {
       request.get(
@@ -58,14 +89,15 @@ exports.retrievePaymentIntent = idPaymentIntent => {
     }
   });
 };
+exports.retrievePaymentIntent = retrievePaymentIntent;
 
 /**
  * Transfert a amount for the connected accounts
- * @param amount number
- * @param destination string
- * @return object
+ * @param {number} amount
+ * @param {string} destination
+ * @return {object}
  */
-exports.transfertToConnectAccount = (amount, destination) => {
+const transfertToConnectAccount = (amount, destination) => {
   return new Promise((resolve, reject) => {
     try {
       request.post(
@@ -93,14 +125,15 @@ exports.transfertToConnectAccount = (amount, destination) => {
     }
   });
 };
+exports.transfertToConnectAccount = transfertToConnectAccount;
 
 /**
  * Coonect an account guide
- * @param accountToken string
- * @param email string
- * @return object
+ * @param {string} accountToken
+ * @param {string} email
+ * @return {object}
  */
-exports.createAccount = (accountToken, email) => {
+const createAccount = (accountToken, email) => {
   return new Promise((resolve, reject) => {
     try {
       request.post(
@@ -128,13 +161,19 @@ exports.createAccount = (accountToken, email) => {
     }
   });
 };
+exports.createAccount = createAccount;
 
 /**
  * create a payment method for the credit card customer
- * @param payload {card: number, expMonth: number, expYear: number, cvc: number}
- * @returns object
+ * @param {{
+ * card?: number;
+ * expMonth?: number;
+ * expYear?: number;
+ * cvc?: number;
+ * }} payload
+ * @returns {object}
  */
-exports.createPaymentMethod = payload => {
+const createPaymentMethod = payload => {
   return new Promise((resolve, reject) => {
     try {
       const form = {};
@@ -170,14 +209,15 @@ exports.createPaymentMethod = payload => {
     }
   });
 };
+exports.createPaymentMethod = createPaymentMethod;
 
 /**
  * create a payment intent
- * @param amount number
- * @param paymentMethod string
- * @return object
+ * @param {number} amount
+ * @param {string} paymentMethod
+ * @return {object}
  */
-exports.createPaymentIntent = (amount, paymentMethod, email) => {
+const createPaymentIntent = (amount, paymentMethod, email) => {
   return new Promise((resolve, reject) => {
     try {
       request.post(
@@ -208,3 +248,4 @@ exports.createPaymentIntent = (amount, paymentMethod, email) => {
     }
   });
 };
+exports.createPaymentIntent = createPaymentIntent;

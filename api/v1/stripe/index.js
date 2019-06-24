@@ -61,7 +61,7 @@ module.exports = router => {
 
       const { amount } = req.body;
 
-      const transfert = await transfertToConnectAccount(amount, req.user.su_id);
+      const transfert = await transfertToConnectAccount((amount * config.fees) / 100, req.user.su_id);
       if (transfert.error) {
         logger.error(`error transfert :/`);
         console.log(transfert);
