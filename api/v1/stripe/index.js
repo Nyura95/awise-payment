@@ -2,23 +2,66 @@ const {
   createPaymentMethod,
   createPaymentIntent,
   createAccount,
-  transfertToCoonectAccount
+  transfertToConnectAccount,
+  retrievePaymentIntent,
+  refundPayment
 } = require('../../../helpers/request');
 const { getDatabaseModels } = require('../../../core/database');
 const { getDateNowUtc } = require('../../../helpers/moment');
 const { checkToken } = require('../../../middleware');
 
 module.exports = router => {
+  router.post('/refund', checkToken, async (req, res) => {
+    try {
+      logger.info(`New refund !`);
+      const { idBooking } = req.body;
+      const db = getDatabaseModels('appointrip');
+
+      logger.debug(`find the paymentIntent ...`);
+      const paymentIntent = await db.tbl_payment_intent.findOne({
+        where: { id_user: req.user.userID, id_booking: idBooking }
+      });
+      if (!paymentIntent) {
+        logger.error(`Payment intent not found !`);
+        return res.customJson({}, 400, 'Payment intent not found for this user !');
+      }
+
+      logger.debug(`retrieve the paymentIntent from stripe ...`);
+      const intent = await retrievePaymentIntent(paymentIntent.id_payment_intent);
+      if (intent.error) {
+        logger.error(`error retrieve payment intent :/`);
+        console.log(intent);
+        return res.customJson({}, 400, intent.message);
+      }
+
+      if (intent.charges.data.length === 0) {
+        logger.error(`This payment is not catured !`);
+        return res.customJson({}, 400, 'This payment is not catured !');
+      }
+
+      logger.debug(`refund the paymentIntent from stripe ...`);
+      await refundPayment(intent.charges.data[0].id);
+
+      logger.info(`Refund success :)`);
+      res.customJson('ok');
+    } catch (err) {
+      logger.error(`Error refund !`);
+      console.log(err);
+      return res.customJson({ message: err.message }, 400, 'Error payment');
+    }
+  });
+
   router.post('/transfert', checkToken, async (req, res) => {
     try {
       logger.info(`New transfert !`);
       if (req.user.su_id === null) {
+        logger.error(`Account not connected !`);
         return res.customJson({ message: err.message }, 400, 'This account is not connected !');
       }
 
       const { amount } = req.body;
 
-      const transfert = await transfertToCoonectAccount(amount, req.user.su_id);
+      const transfert = await transfertToConnectAccount(amount, req.user.su_id);
       if (transfert.error) {
         logger.error(`error transfert :/`);
         console.log(transfert);
@@ -67,7 +110,7 @@ module.exports = router => {
 
   router.post('/payment', checkToken, async (req, res) => {
     try {
-      const { amount, card, expMonth, expYear, cvc, token } = req.body;
+      const { amount, card, expMonth, expYear, cvc, token, idBooking } = req.body;
 
       const db = getDatabaseModels('appointrip');
       logger.info(`New payment !`);
@@ -114,6 +157,7 @@ module.exports = router => {
         id_payment_method: savePaymentMethodawait.id,
         status: paymentIntent.status,
         id_user: req.user.userID,
+        id_booking: idBooking,
         updated_at: getDateNowUtc().toDate(),
         created_at: getDateNowUtc().toDate()
       });

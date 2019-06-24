@@ -27,6 +27,7 @@ create table tbl_payment_intent
   (255),
   id_user int
   (5) not null,
+  id_booking int(5) not null,
   updated_at datetime,
   created_at datetime,
   primary key

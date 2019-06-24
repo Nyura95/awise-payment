@@ -60,6 +60,10 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(5),
 			allowNull: false
 		},
+		id_booking: {
+			type: DataTypes.INTEGER(5),
+			allowNull: false
+		},
 		updated_at: {
 			type: DataTypes.DATE,
 			allowNull: true

@@ -1,12 +1,71 @@
 const request = require('request');
 
 /**
+ * Refund a charge
+ * @param idCharge string
+ * @return object
+ */
+exports.refundPayment = idCharge => {
+  return new Promise((resolve, reject) => {
+    try {
+      request.post(
+        `https://api.stripe.com/v1/refunds`,
+        {
+          form: {
+            charge: idCharge
+          },
+          headers: {
+            Authorization: `Bearer ${config.stripe.token}`
+          }
+        },
+        (error, _, body) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(JSON.parse(body));
+        }
+      );
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+/**
+ * Retrieve a payment intent
+ * @param idPaymentIntent string
+ * @return object
+ */
+exports.retrievePaymentIntent = idPaymentIntent => {
+  return new Promise((resolve, reject) => {
+    try {
+      request.get(
+        `https://api.stripe.com/v1/payment_intents/${idPaymentIntent}`,
+        {
+          headers: {
+            Authorization: `Bearer ${config.stripe.token}`
+          }
+        },
+        (error, _, body) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(JSON.parse(body));
+        }
+      );
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+/**
  * Transfert a amount for the connected accounts
  * @param amount number
  * @param destination string
  * @return object
  */
-exports.transfertToCoonectAccount = (amount, destination) => {
+exports.transfertToConnectAccount = (amount, destination) => {
   return new Promise((resolve, reject) => {
     try {
       request.post(
@@ -130,6 +189,7 @@ exports.createPaymentIntent = (amount, paymentMethod, email) => {
             'payment_method_types[]': 'card',
             payment_method: paymentMethod,
             confirm: true,
+            manual: 'manual',
             receipt_email: email
           },
           headers: {
