@@ -1,6 +1,76 @@
 const request = require('request');
 
 /**
+ * Transfert a amount for the connected accounts
+ * @param amount number
+ * @param destination string
+ * @return object
+ */
+exports.transfertToCoonectAccount = (amount, destination) => {
+  return new Promise((resolve, reject) => {
+    try {
+      request.post(
+        'https://api.stripe.com/v1/transfers',
+        {
+          form: {
+            amount,
+            destination,
+            currency: 'eur',
+            transfer_group: 'ORDER_95'
+          },
+          headers: {
+            Authorization: `Bearer ${config.stripe.token}`
+          }
+        },
+        (error, _, body) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(JSON.parse(body));
+        }
+      );
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+/**
+ * Coonect an account guide
+ * @param accountToken string
+ * @param email string
+ * @return object
+ */
+exports.createAccount = (accountToken, email) => {
+  return new Promise((resolve, reject) => {
+    try {
+      request.post(
+        'https://api.stripe.com/v1/accounts',
+        {
+          form: {
+            type: 'custom',
+            country: 'FR',
+            email: email,
+            account_token: accountToken
+          },
+          headers: {
+            Authorization: `Bearer ${config.stripe.token}`
+          }
+        },
+        (error, _, body) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(JSON.parse(body));
+        }
+      );
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+/**
  * create a payment method for the credit card customer
  * @param payload {card: number, expMonth: number, expYear: number, cvc: number}
  * @returns object
@@ -8,10 +78,9 @@ const request = require('request');
 exports.createPaymentMethod = payload => {
   return new Promise((resolve, reject) => {
     try {
-
       const form = {};
       if (payload.token) {
-        form['card[token]'] = payload.token
+        form['card[token]'] = payload.token;
       } else {
         form['card[number]'] = payload.card;
         form['card[exp_month]'] = payload.expMonth;
@@ -19,20 +88,24 @@ exports.createPaymentMethod = payload => {
         form['card[cvc]'] = payload.cvc;
       }
 
-      request.post('https://api.stripe.com/v1/payment_methods', {
-        form: {
-          type: 'card',
-          ...form
+      request.post(
+        'https://api.stripe.com/v1/payment_methods',
+        {
+          form: {
+            type: 'card',
+            ...form
+          },
+          headers: {
+            Authorization: `Bearer ${config.stripe.token}`
+          }
         },
-        headers: {
-          'Authorization': `Bearer ${config.stripe.token}`
+        (error, _, body) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(JSON.parse(body));
         }
-      }, (error, _, body) => {
-        if (error) {
-          reject(error);
-        }
-        resolve(JSON.parse(body));
-      });
+      );
     } catch (err) {
       reject(err);
     }
@@ -48,26 +121,29 @@ exports.createPaymentMethod = payload => {
 exports.createPaymentIntent = (amount, paymentMethod) => {
   return new Promise((resolve, reject) => {
     try {
-      request.post('https://api.stripe.com/v1/payment_intents', {
-        form: {
-          amount,
-          currency: 'eur',
-          'payment_method_types[]': 'card',
-          payment_method: paymentMethod,
-          confirm: true
+      request.post(
+        'https://api.stripe.com/v1/payment_intents',
+        {
+          form: {
+            amount,
+            currency: 'eur',
+            'payment_method_types[]': 'card',
+            payment_method: paymentMethod,
+            confirm: true
+          },
+          headers: {
+            Authorization: `Bearer ${config.stripe.token}`
+          }
         },
-        headers: {
-          'Authorization': `Bearer ${config.stripe.token}`
+        (error, _, body) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(JSON.parse(body));
         }
-      }, (error, _, body) => {
-        if (error) {
-          reject(error);
-        }
-        resolve(JSON.parse(body));
-      });
+      );
     } catch (err) {
       reject(err);
     }
   });
 };
-

@@ -1,17 +1,18 @@
 const stripe = require('stripe')(config.stripe.token);
 
-exports.listConnectAccount = (amount, currency) => {
+exports.createNewAccount = (amount, currency) => {
   return new Promise(async (resolve, reject) => {
     try {
-      stripe.paymentIntents.create(
+      stripe.accounts.create(
         {
-          payment_method_types: ['card'],
-          amount,
-          currency
+          type: 'custom',
+          country: 'US',
+          email: 'bob@example.com',
+          requested_capabilities: ['card_payments']
         },
-        function (err, accounts) {
+        function(err, account) {
           if (err) return reject(err);
-          resolve(accounts);
+          resolve(account);
         }
       );
     } catch (err) {

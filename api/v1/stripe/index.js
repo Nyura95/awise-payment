@@ -1,12 +1,72 @@
-const { createPaymentMethod, createPaymentIntent } = require('../../../helpers/request');
+const {
+  createPaymentMethod,
+  createPaymentIntent,
+  createAccount,
+  transfertToCoonectAccount
+} = require('../../../helpers/request');
 const { getDatabaseModels } = require('../../../core/database');
 const { getDateNowUtc } = require('../../../helpers/moment');
 const { checkToken } = require('../../../middleware');
 
 module.exports = router => {
+  router.post('/transfert', checkToken, async (req, res) => {
+    try {
+      logger.info(`New transfert !`);
+      if (req.user.su_id === null) {
+        return res.customJson({ message: err.message }, 400, 'This account is not connected !');
+      }
+
+      const { amount } = req.body;
+
+      const transfert = await transfertToCoonectAccount(amount, req.user.su_id);
+      if (transfert.error) {
+        logger.error(`error transfert :/`);
+        console.log(transfert);
+        return res.customJson({}, 400, transfert.message);
+      }
+
+      logger.info(`Transfert success :)`);
+      res.customJson('ok');
+    } catch (err) {
+      logger.error(`Error transfert !`);
+      console.log(err);
+      return res.customJson({ message: err.message }, 400, 'Error payment');
+    }
+  });
+
+  router.post('/connect/guide', checkToken, async (req, res) => {
+    try {
+      logger.info(`New connect account !`);
+      if (req.user.su_id !== null) {
+        return res.customJson({}, 400, 'User already has a connected account.');
+      }
+
+      const { accountToken } = req.body;
+
+      logger.debug(`start create account from stripe ...`);
+      const account = await createAccount(accountToken, req.user.email);
+      if (account.error) {
+        logger.error(`error connect account :/`);
+        console.log(account);
+        return res.customJson({}, 400, account.message);
+      }
+
+      logger.debug(`update account from database ...`);
+      req.user.su_id = account.id;
+      req.user.updated_at = getDateNowUtc().toDate();
+      await req.user.save();
+
+      logger.info(`Account create :)`);
+      res.customJson('ok');
+    } catch (err) {
+      logger.error(`Error connect !`);
+      console.log(err);
+      return res.customJson({ message: err.message }, 400, 'Error payment');
+    }
+  });
+
   router.post('/payment', checkToken, async (req, res) => {
     try {
-
       const { amount, card, expMonth, expYear, cvc, token } = req.body;
 
       const db = getDatabaseModels('appointrip');
@@ -61,6 +121,8 @@ module.exports = router => {
       logger.info(`Payment end ! thx`);
       res.customJson('ok');
     } catch (err) {
+      logger.error(`Error payment !`);
+      console.log(err);
       return res.customJson({ message: err.message }, 400, 'Error payment');
     }
   });
