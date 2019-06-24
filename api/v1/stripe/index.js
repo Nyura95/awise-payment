@@ -29,7 +29,7 @@ module.exports = router => {
       logger.debug(`retrieve the paymentIntent from stripe ...`);
       const intent = await retrievePaymentIntent(paymentIntent.id_payment_intent);
       if (intent.error) {
-        logger.error(`error retrieve payment intent :/`);
+        logger.error(`Error retrieve payment intent :/`);
         console.log(intent);
         return res.customJson({}, 400, intent.message);
       }
