@@ -118,7 +118,7 @@ exports.createPaymentMethod = payload => {
  * @param paymentMethod string
  * @return object
  */
-exports.createPaymentIntent = (amount, paymentMethod) => {
+exports.createPaymentIntent = (amount, paymentMethod, email) => {
   return new Promise((resolve, reject) => {
     try {
       request.post(
@@ -129,7 +129,8 @@ exports.createPaymentIntent = (amount, paymentMethod) => {
             currency: 'eur',
             'payment_method_types[]': 'card',
             payment_method: paymentMethod,
-            confirm: true
+            confirm: true,
+            receipt_email: email
           },
           headers: {
             Authorization: `Bearer ${config.stripe.token}`
