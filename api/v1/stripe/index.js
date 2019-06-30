@@ -2,7 +2,7 @@ const {
   createPaymentMethod,
   createPaymentIntent,
   createAccount,
-  transfertToConnectAccount,
+  transferoConnectAccount,
   retrievePaymentIntent,
   refundPayment
 } = require('../../../helpers/request');
@@ -51,26 +51,26 @@ module.exports = router => {
     }
   });
 
-  router.post('/transfert', checkToken, async (req, res) => {
+  router.post('/transfer', checkToken, async (req, res) => {
     try {
-      logger.info(`New transfert !`);
+      logger.info(`New transfer !`);
       if (req.user.su_id === null) {
         logger.error(`Account not connected !`);
         return res.customJson({ message: err.message }, 400, 'This account is not connected !');
       }
 
       const { amount } = req.body;
-      const transfert = await transfertToConnectAccount((parseInt(amount) * config.fees) / 100, req.user.su_id);
-      if (transfert.error) {
-        logger.error(`error transfert :/`);
-        console.log(transfert);
-        return res.customJson({}, 400, transfert.error.message);
+      const transfer = await transferoConnectAccount((parseInt(amount) * config.fees) / 100, req.user.su_id);
+      if (transfer.error) {
+        logger.error(`error transfer :/`);
+        console.log(transfer);
+        return res.customJson({}, 400, transfer.error.message);
       }
 
-      logger.info(`Transfert success :)`);
+      logger.info(`Transfer success :)`);
       res.customJson('ok');
     } catch (err) {
-      logger.error(`Error transfert !`);
+      logger.error(`Error transfer !`);
       console.log(err);
       return res.customJson({ message: err.message }, 400, 'Error payment');
     }

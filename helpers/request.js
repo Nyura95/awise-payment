@@ -92,12 +92,12 @@ const retrievePaymentIntent = idPaymentIntent => {
 exports.retrievePaymentIntent = retrievePaymentIntent;
 
 /**
- * Transfert a amount for the connected accounts
+ * transfer a amount for the connected accounts
  * @param {number} amount
  * @param {string} destination
  * @return {object}
  */
-const transfertToConnectAccount = (amount, destination) => {
+const transferoConnectAccount = (amount, destination) => {
   return new Promise((resolve, reject) => {
     try {
       request.post(
@@ -125,7 +125,7 @@ const transfertToConnectAccount = (amount, destination) => {
     }
   });
 };
-exports.transfertToConnectAccount = transfertToConnectAccount;
+exports.transferoConnectAccount = transferoConnectAccount;
 
 /**
  * Coonect an account guide
