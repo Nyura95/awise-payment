@@ -25,7 +25,7 @@ module.exports = router => {
         logger.error(`Payment intent not found !`);
         return res.customJson({}, 400, 'Payment intent not found for this user !');
       }
-      console.log(paymentIntent.id_payment_intent)
+      console.log(paymentIntent.id_payment_intent);
       logger.debug(`retrieve the paymentIntent from stripe ...`);
       const intent = await retrievePaymentIntent(paymentIntent.id_payment_intent);
       if (intent.error) {
@@ -60,7 +60,10 @@ module.exports = router => {
       }
 
       const { amount } = req.body;
-      const transfer = await transferoConnectAccount((parseInt(amount) * config.fees) / 100, req.user.su_id);
+      const transfer = await transferoConnectAccount(
+        parseInt(amount) - (parseInt(amount) * config.fees) / 100,
+        req.user.su_id
+      );
       if (transfer.error) {
         logger.error(`error transfer :/`);
         console.log(transfer);
@@ -142,7 +145,7 @@ module.exports = router => {
         return res.customJson({}, 400, paymentIntent.error.message);
       }
       logger.debug(`save payment intent`);
-      console.log(paymentIntent)
+      console.log(paymentIntent);
       await db.tbl_payment_intent.create({
         id_payment_intent: paymentIntent.id,
         object: paymentIntent.object,
