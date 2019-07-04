@@ -228,7 +228,7 @@ const createPaymentIntent = (amount, paymentMethod, email) => {
             currency: 'eur',
             'payment_method_types[]': 'card',
             payment_method: paymentMethod,
-            confirm: true,
+            confirm: false,
             receipt_email: email
           },
           headers: {
