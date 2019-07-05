@@ -11,7 +11,7 @@ module.exports = {
       ],
       parameters: [
         {
-          name: 'ibBooking',
+          name: 'idBooking',
           type: 'number',
           in: 'formData',
           schema: {

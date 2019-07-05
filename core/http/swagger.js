@@ -21,7 +21,7 @@ module.exports = (app, port, paths) => {
       },
       servers: [
         {
-          url: `http://payment.awise.co/`,
+          url: `https://payment.awise.co/`,
           description: 'First server',
         },
       ],
