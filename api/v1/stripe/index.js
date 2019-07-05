@@ -67,11 +67,18 @@ module.exports = router => {
         return res.customJson({}, 400, 'booking does not exist');
       }
 
+      const pi = await retrievePaymentIntent(booking.id_payment_intent);
+      if (pi.error) {
+        logger.error(`error retrieve payment intent`);
+        console.log(pi);
+        return res.customJson({}, 400, pi.error.message);
+      }
+
       const transfer = await transferConnectAccount(
-        parseInt(booking.amount) - (parseInt(booking.amount) * config.fees) / 100,
+        parseInt(pi.charges.data[0].amount) - (parseInt(pi.charges.data[0].amount) * config.fees) / 100,
         req.user.su_id,
         idBooking,
-        booking.id_payment_intent
+        pi.charges.data[0].id
       );
       if (transfer.error) {
         logger.error(`error transfer :/`);
