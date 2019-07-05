@@ -1,9 +1,9 @@
 module.exports = {
-  '/v1/stripe/transfert': {
+  '/v1/stripe/transfer': {
     post: {
-      tags: ['Transfert'],
-      description: 'Transfert a payment for a guide',
-      operationId: 'trasnfertToGuide',
+      tags: ['Transfer'],
+      description: 'Transfer a payment for a guide',
+      operationId: 'trasnferToGuide',
       security: [
         {
           ApiKeyAuth: []
@@ -11,11 +11,11 @@ module.exports = {
       ],
       parameters: [
         {
-          name: 'amount',
+          name: 'ibBooking',
           type: 'number',
           in: 'formData',
           schema: {
-            default: 3000
+            default: 648
           },
           required: true,
         },

@@ -97,7 +97,7 @@ exports.retrievePaymentIntent = retrievePaymentIntent;
  * @param {string} destination
  * @return {object}
  */
-const transferoConnectAccount = (amount, destination) => {
+const transferConnectAccount = (amount, destination, idBooking, source) => {
   return new Promise((resolve, reject) => {
     try {
       request.post(
@@ -107,7 +107,8 @@ const transferoConnectAccount = (amount, destination) => {
             amount,
             destination,
             currency: 'eur',
-            transfer_group: 'ORDER_95'
+            transfer_group: idBooking,
+            source_transaction: source
           },
           headers: {
             Authorization: `Bearer ${config.stripe.token}`
@@ -125,7 +126,7 @@ const transferoConnectAccount = (amount, destination) => {
     }
   });
 };
-exports.transferoConnectAccount = transferoConnectAccount;
+exports.transferConnectAccount = transferConnectAccount;
 
 /**
  * Coonect an account guide

@@ -43,9 +43,6 @@ module.exports = {
           in: 'formData',
           maxLength: 16,
           minLength: 16,
-          schema: {
-            default: 4242424242424242
-          },
           required: false,
         },
         {
@@ -54,9 +51,6 @@ module.exports = {
           in: 'formData',
           maxLength: 2,
           minLength: 2,
-          schema: {
-            default: 02
-          },
           required: false,
         },
         {
@@ -65,20 +59,19 @@ module.exports = {
           in: 'formData',
           maxLength: 4,
           minLength: 4,
-          schema: {
-            default: 2021
-          },
           required: false,
         },
         {
           name: 'cvc',
           type: 'number',
           in: 'formData',
+          example: {
+            default: {
+              value: 123
+            }
+          },
           maxLength: 3,
           minLength: 3,
-          schema: {
-            default: 123
-          },
           required: false,
         },
       ],

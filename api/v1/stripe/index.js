@@ -2,7 +2,7 @@ const {
   createPaymentMethod,
   createPaymentIntent,
   createAccount,
-  transferoConnectAccount,
+  transferConnectAccount,
   retrievePaymentIntent,
   refundPayment
 } = require('../../../helpers/request');
@@ -25,7 +25,6 @@ module.exports = router => {
         logger.error(`Payment intent not found !`);
         return res.customJson({}, 400, 'Payment intent not found for this user !');
       }
-      console.log(paymentIntent.id_payment_intent);
       logger.debug(`retrieve the paymentIntent from stripe ...`);
       const intent = await retrievePaymentIntent(paymentIntent.id_payment_intent);
       if (intent.error) {
@@ -54,15 +53,25 @@ module.exports = router => {
   router.post('/transfer', checkToken, async (req, res) => {
     try {
       logger.info(`New transfer !`);
+
+      const db = getDatabaseModels('appointrip');
+      const { idBooking } = req.body;
+
       if (req.user.su_id === null) {
         logger.error(`Account not connected !`);
-        return res.customJson({ message: err.message }, 400, 'This account is not connected !');
+        return res.customJson({}, 400, 'This account is not connected !');
       }
 
-      const { amount } = req.body;
-      const transfer = await transferoConnectAccount(
-        parseInt(amount) - (parseInt(amount) * config.fees) / 100,
-        req.user.su_id
+      const booking = await db.tbl_payment_intent.findOne({ where: { id_booking: idBooking } });
+      if (!booking) {
+        return res.customJson({}, 400, 'booking does not exist');
+      }
+
+      const transfer = await transferConnectAccount(
+        parseInt(booking.amount) - (parseInt(booking.amount) * config.fees) / 100,
+        req.user.su_id,
+        idBooking,
+        booking.id_payment_intent
       );
       if (transfer.error) {
         logger.error(`error transfer :/`);
@@ -145,7 +154,6 @@ module.exports = router => {
         return res.customJson({}, 400, paymentIntent.error.message);
       }
       logger.debug(`save payment intent`);
-      console.log(paymentIntent);
       await db.tbl_payment_intent.create({
         id_payment_intent: paymentIntent.id,
         object: paymentIntent.object,
