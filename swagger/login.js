@@ -10,7 +10,7 @@ module.exports = {
           type: 'string',
           in: 'formData',
           schema: {
-            default: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjU4OCwiZm5hbWUiOiJKb3NlcGhpbmUiLCJsbmFtZSI6IkdPVVJFVFRFIiwiZW1haWwiOiJ4eEB4eC54eCIsImlhdCI6MTU1ODA5OTYwMSwiZXhwIjoxNTU4MTU5NjAxfQ.-5Cei12bC327CV6NKrWZzKA8ZAxktz-aniB60nDThjw',
+            default: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImZuYW1lIjoiR2VyYXJkIiwibG5hbWUiOiJHVVlPVCIsImVtYWlsIjoiZ3VpZGVAcXEucXEiLCJpYXQiOjE1NTgwOTk2MjgsImV4cCI6MTU1ODE1OTYyOH0.TUO6nYcMv6U2Kl24nBzwtEquY3J1Neo-6ayvles0vl4',
           },
           required: true,
         },

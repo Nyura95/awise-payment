@@ -15,7 +15,7 @@ module.exports = {
           type: 'number',
           in: 'formData',
           schema: {
-            default: 648
+            default: 888
           },
           required: true,
         },
