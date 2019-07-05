@@ -138,7 +138,7 @@ module.exports = router => {
       });
 
       logger.debug(`create a payment intent ...`);
-      const paymentIntent = await createPaymentIntent(amount, paymentMethod.id, req.user.email);
+      const paymentIntent = await createPaymentIntent(amount, paymentMethod.id, req.user.email, idBooking);
       if (paymentIntent.error) {
         logger.error(`error payment intent :/`);
         console.log(paymentIntent);

@@ -217,7 +217,7 @@ exports.createPaymentMethod = createPaymentMethod;
  * @param {string} paymentMethod
  * @return {object}
  */
-const createPaymentIntent = (amount, paymentMethod, email) => {
+const createPaymentIntent = (amount, paymentMethod, email, id_booking) => {
   return new Promise((resolve, reject) => {
     try {
       request.post(
@@ -229,6 +229,7 @@ const createPaymentIntent = (amount, paymentMethod, email) => {
             'payment_method_types[]': 'card',
             payment_method: paymentMethod,
             confirm: false,
+            transfer_group: id_booking,
             receipt_email: email
           },
           headers: {

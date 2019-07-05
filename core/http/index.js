@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
 const http = require('http');
-const path = require('path');
+const swagger = require('./swagger');
 
 // modules
 const response = require('./response');
@@ -112,9 +112,16 @@ module.exports = (path, options = {}) => {
     });
   }
 
+  if (options.swagger) {
+    swagger(app, options.port, options.swagger);
+  }
+
+
   app.all('*', function (req, res) {
     res.customJson('', 404);
   });
+
+
 
   let server = http.createServer(app);
   server.listen(

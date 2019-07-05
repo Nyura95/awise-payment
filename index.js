@@ -4,6 +4,7 @@ global.__basedir = __dirname;
 
 
 const startApi = require('./core/http');
+const swaggerPath = require('./swagger');
 
 
 const { storeDatabaseConnection, DatabaseConnection } = require('./core/database');
@@ -34,6 +35,6 @@ const { storeDatabaseConnection, DatabaseConnection } = require('./core/database
     );
   }
 
-  startApi(__dirname + '/api', { ...config.http, logger, folderIndex: __dirname + '/view' });
+  startApi(__dirname + '/api', { ...config.http, logger, folderIndex: __dirname + '/view', swagger: swaggerPath });
 
 })();
