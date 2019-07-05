@@ -9,7 +9,7 @@ module.exports = (app, port, paths) => {
         version: '1.0.0',
         description: 'Payment API in relationship with stripe',
       },
-      host: `localhost:${port}`,
+      host: `payment.awise.co`,
       basePath: '/api',
       securityDefinitions: {
         ApiKeyAuth: {
@@ -21,7 +21,7 @@ module.exports = (app, port, paths) => {
       },
       servers: [
         {
-          url: `http://localhost:${port}/`,
+          url: `http://payment.awise.co/`,
           description: 'First server',
         },
       ],
