@@ -229,9 +229,10 @@ const createPaymentIntent = (amount, paymentMethod, email, id_booking) => {
             currency: 'eur',
             'payment_method_types[]': 'card',
             payment_method: paymentMethod,
-            confirm: false,
             transfer_group: id_booking,
-            receipt_email: email
+            receipt_email: email,
+            confirmation_method: 'automatic',
+            confirm: true
           },
           headers: {
             Authorization: `Bearer ${config.stripe.token}`

@@ -62,7 +62,12 @@ module.exports = router => {
         return res.customJson({}, 400, 'This account is not connected !');
       }
 
-      const booking = await db.tbl_payment_intent.findOne({ where: { id_booking: idBooking } });
+      const booking = await db.tbl_payment_intent.findOne({
+        where: { id_booking: idBooking }, order: [
+          ['id', 'DESC'],
+
+        ]
+      });
       if (!booking) {
         return res.customJson({}, 400, 'booking does not exist');
       }
