@@ -54,6 +54,14 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(10),
 			allowNull: false
 		},
+		price_kid: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true
+		},
+		price_kid_age: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true
+		},
 		price_additional_fees: {
 			type: DataTypes.INTEGER(11),
 			allowNull: true,
@@ -86,6 +94,10 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING(255),
 			allowNull: false,
 			defaultValue: ''
+		},
+		type_second: {
+			type: DataTypes.STRING(255),
+			allowNull: true
 		},
 		subtype: {
 			type: DataTypes.STRING(255),

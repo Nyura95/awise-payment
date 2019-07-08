@@ -232,7 +232,8 @@ const createPaymentIntent = (amount, paymentMethod, email, id_booking) => {
             transfer_group: id_booking,
             receipt_email: email,
             confirmation_method: 'automatic',
-            confirm: true
+            confirm: true,
+            statement_descriptor: 'Awise'
           },
           headers: {
             Authorization: `Bearer ${config.stripe.token}`

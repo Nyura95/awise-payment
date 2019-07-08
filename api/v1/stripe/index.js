@@ -20,9 +20,7 @@ module.exports = router => {
       logger.debug(`find the paymentIntent ...`);
       const paymentIntent = await db.tbl_payment_intent.findOne({
         where: { id_user: req.user.userID, id_booking: idBooking },
-        order: [
-          ['id', 'DESC'],
-        ]
+        order: [['id', 'DESC']]
       });
       if (!paymentIntent) {
         logger.error(`Payment intent not found !`);
@@ -66,9 +64,8 @@ module.exports = router => {
       }
 
       const booking = await db.tbl_payment_intent.findOne({
-        where: { id_booking: idBooking }, order: [
-          ['id', 'DESC'],
-        ]
+        where: { id_booking: idBooking },
+        order: [['id', 'DESC']]
       });
       if (!booking) {
         return res.customJson({}, 400, 'booking does not exist');
@@ -81,12 +78,22 @@ module.exports = router => {
         return res.customJson({}, 400, pi.error.message);
       }
 
-      const transfer = await transferConnectAccount(
-        parseInt(pi.charges.data[0].amount) - (parseInt(pi.charges.data[0].amount) * config.fees) / 100,
-        req.user.su_id,
-        idBooking,
-        pi.charges.data[0].id
-      );
+      const amount = parseInt(pi.charges.data[0].amount);
+      const amountFees = (amount * config.fees) / 100;
+      const amountTransfer = amount - amountFees;
+
+      logger.debug('log transfer');
+      await db.tbl_log_transfer.create({
+        id_booking: booking.id_booking,
+        id_user: req.user.userID,
+        id_ch: pi.charges.data[0].id,
+        fees: config.fees,
+        amount,
+        amount_fees: amountFees,
+        amount_transfer: amountTransfer
+      });
+
+      const transfer = await transferConnectAccount(amountTransfer, req.user.su_id, idBooking, pi.charges.data[0].id);
       if (transfer.error) {
         logger.error(`error transfer :/`);
         console.log(transfer);

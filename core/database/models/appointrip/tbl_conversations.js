@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING(255),
 			allowNull: false
 		},
-		token: {
-			type: DataTypes.STRING(255),
-			allowNull: false
-		},
 		title: {
 			type: DataTypes.STRING(255),
 			allowNull: false
@@ -24,8 +20,16 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(5),
 			allowNull: false
 		},
+		token_creator: {
+			type: DataTypes.STRING(255),
+			allowNull: false
+		},
 		id_receiver: {
 			type: DataTypes.INTEGER(5),
+			allowNull: false
+		},
+		token_receiver: {
+			type: DataTypes.STRING(255),
 			allowNull: false
 		},
 		id_last_message: {

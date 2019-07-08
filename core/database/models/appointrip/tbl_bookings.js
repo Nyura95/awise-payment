@@ -59,6 +59,11 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.DECIMAL,
 			allowNull: false
 		},
+		price_unit_kid: {
+			type: DataTypes.DECIMAL,
+			allowNull: true,
+			defaultValue: '0.00'
+		},
 		price_total: {
 			type: DataTypes.DECIMAL,
 			allowNull: false
@@ -66,6 +71,11 @@ module.exports = function(sequelize, DataTypes) {
 		price_paid: {
 			type: DataTypes.DECIMAL,
 			allowNull: false
+		},
+		price_transfer: {
+			type: DataTypes.DECIMAL,
+			allowNull: false,
+			defaultValue: '0.00'
 		},
 		price_additional_fees: {
 			type: DataTypes.DECIMAL,
@@ -86,6 +96,11 @@ module.exports = function(sequelize, DataTypes) {
 		people: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false
+		},
+		kids: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			defaultValue: '0'
 		},
 		score: {
 			type: DataTypes.INTEGER(11),

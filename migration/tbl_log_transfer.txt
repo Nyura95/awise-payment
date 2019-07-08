@@ -1,0 +1,11 @@
+create table tbl_log_transfer (
+  id int(5) not null auto_increment,
+  id_booking int(5) not null,
+  id_user int(5) not null,
+  id_ch varchar(255) not null,
+  fees int(5) not null,
+  amount varchar(255) not null,
+  amount_fees varchar(255) not null,
+  amount_transfer varchar(255) not null,
+  primary key(id)
+);
