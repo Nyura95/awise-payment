@@ -79,8 +79,8 @@ module.exports = router => {
       }
 
       const amount = parseInt(pi.charges.data[0].amount);
-      const amountFees = (amount * config.fees) / 100;
-      const amountTransfer = amount - amountFees;
+      const amountFees = Math.floor((amount * config.fees) / 100);
+      const amountTransfer = Math.ceil(amount - amountFees);
 
       logger.debug('log transfer');
       await db.tbl_log_transfer.create({

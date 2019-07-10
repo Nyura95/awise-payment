@@ -107,7 +107,7 @@ const transferConnectAccount = (amount, destination, idBooking, source) => {
             amount,
             destination,
             currency: 'eur',
-            transfer_group: idBooking,
+            // transfer_group: idBooking,
             source_transaction: source
           },
           headers: {
