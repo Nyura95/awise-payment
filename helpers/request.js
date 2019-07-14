@@ -252,3 +252,72 @@ const createPaymentIntent = (amount, paymentMethod, email, id_booking) => {
   });
 };
 exports.createPaymentIntent = createPaymentIntent;
+
+/**
+ * create a payment intent secure
+ * @param {number} amount
+ * @param {string} paymentMethod
+ * @return {object}
+ */
+const createPaymentIntentSecure = (amount, paymentMethod, email, id_booking) => {
+  return new Promise((resolve, reject) => {
+    try {
+      request.post(
+        'https://api.stripe.com/v1/payment_intents',
+        {
+          form: {
+            amount,
+            currency: 'eur',
+            'payment_method_types[]': 'card',
+            payment_method: paymentMethod,
+            transfer_group: id_booking,
+            receipt_email: email,
+            confirmation_method: 'manual',
+            confirm: true,
+            statement_descriptor: 'Awise'
+          },
+          headers: {
+            Authorization: `Bearer ${config.stripe.token}`
+          }
+        },
+        (error, _, body) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(JSON.parse(body));
+        }
+      );
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+exports.createPaymentIntentSecure = createPaymentIntentSecure;
+
+/**
+ * confirm a payment intent
+ * @param {string} idPaymentIntent
+ */
+const confirmPaymentIntent = idPaymentIntent => {
+  return new Promise((resolve, reject) => {
+    try {
+      request.post(
+        `https://api.stripe.com/v1/payment_intents/${idPaymentIntent}/confirm`,
+        {
+          headers: {
+            Authorization: `Bearer ${config.stripe.token}`
+          }
+        },
+        (error, _, body) => {
+          if (error) {
+            reject(error);
+          }
+          resolve(JSON.parse(body));
+        }
+      );
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+exports.confirmPaymentIntent = confirmPaymentIntent;
