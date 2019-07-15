@@ -88,7 +88,7 @@ module.exports = router => {
       });
 
       logger.info(`Payment end ! thx`);
-      res.customJson(paymentIntentSecure.id);
+      res.customJson({ id: paymentIntentSecure.id, secret: paymentIntentSecure.client_secret });
     } catch (err) {
       logger.error(`Error refund !`);
       console.log(err);
