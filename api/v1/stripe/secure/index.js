@@ -88,7 +88,10 @@ module.exports = router => {
       });
 
       logger.info(`Payment end ! thx`);
-      res.customJson({ secret: paymentIntentSecure.client_secret, requires_action: paymentIntentSecure.charges.data[0].payment_method_details.card.three_d_secure ? true : false });
+      if (paymentIntentSecure.status === 'requires_action') {
+        return res.customJson({ secure: true, secret: paymentIntentSecure.client_secret, requires_action: true });
+      }
+      res.customJson({ secure: false });
     } catch (err) {
       logger.error(`Error refund !`);
       console.log(err);
