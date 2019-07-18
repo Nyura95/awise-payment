@@ -81,7 +81,7 @@ module.exports = router => {
       }
 
       const booking = await db.tbl_bookings.findOne({ where: { id_booking: paymentIntent.id_booking } });
-      let amount = parseInt(booking.price_transfer);
+      let amount = parseInt(booking.price_transfer) * 100;
       if (amount === 0) amount = parseInt(pi.charges.data[0].amount);
       const amountFees = Math.floor((amount * config.fees) / 100);
       const amountTransfer = Math.ceil(amount - amountFees);
