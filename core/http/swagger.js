@@ -13,7 +13,7 @@ module.exports = (app, port, paths) => {
             version: '1.0.0',
             description: 'Payment API in relationship with stripe'
           },
-          host: `payment-pp.awise.co`,
+          host: `payment.awise.co`,
           basePath: '/api',
           securityDefinitions: {
             ApiKeyAuth: {

@@ -61,7 +61,7 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		price_unit_kid: {
 			type: DataTypes.DECIMAL,
-			allowNull: true,
+			allowNull: false,
 			defaultValue: '0.00'
 		},
 		price_total: {
