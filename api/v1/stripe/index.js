@@ -63,21 +63,24 @@ module.exports = router => {
         return res.customJson({}, 400, 'This account is not connected !');
       }
 
-      const booking = await db.tbl_payment_intent.findOne({
+      const paymentIntent = await db.tbl_payment_intent.findOne({
         where: { id_booking: idBooking },
         order: [['id', 'DESC']]
       });
-      if (!booking) {
-        return res.customJson({}, 400, 'booking does not exist');
+      if (!paymentIntent) {
+        return res.customJson({}, 400, 'paymentIntent does not exist');
       }
 
-      const pi = await retrievePaymentIntent(booking.id_payment_intent);
+
+
+      const pi = await retrievePaymentIntent(paymentIntent.id_payment_intent);
       if (pi.error) {
         logger.error(`error retrieve payment intent`);
         console.log(pi);
         return res.customJson({}, 400, pi.error.message);
       }
 
+      const booking = await db.tbl_bookings.findOne({ where: { id_booking: paymentIntent.id_booking } });
       let amount = parseInt(booking.price_transfer);
       if (amount === 0) amount = parseInt(pi.charges.data[0].amount);
       const amountFees = Math.floor((amount * config.fees) / 100);
@@ -85,7 +88,7 @@ module.exports = router => {
 
       logger.debug('log transfer');
       await db.tbl_log_transfer.create({
-        id_booking: booking.id_booking,
+        id_booking: paymentIntent.id_booking,
         id_user: req.user.userID,
         id_ch: pi.charges.data[0].id,
         fees: config.fees,
