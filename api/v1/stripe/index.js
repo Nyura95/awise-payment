@@ -78,7 +78,8 @@ module.exports = router => {
         return res.customJson({}, 400, pi.error.message);
       }
 
-      const amount = parseInt(booking.price_transfer);
+      let amount = parseInt(booking.price_transfer);
+      if (amount === 0) amount = parseInt(pi.charges.data[0].amount);
       const amountFees = Math.floor((amount * config.fees) / 100);
       const amountTransfer = Math.ceil(amount - amountFees);
 
@@ -155,7 +156,7 @@ module.exports = router => {
         return res.customJson({}, 400, paymentMethod.error.message);
       }
       logger.debug(`save payment method`);
-      const savePaymentMethod = await db.tbl_payment_method.create({
+      const savePaymentMethodawait = await db.tbl_payment_method.create({
         id_payment_method: paymentMethod.id,
         object: paymentMethod.object,
         billing_details: JSON.stringify(paymentMethod.billing_details),
@@ -186,7 +187,7 @@ module.exports = router => {
         currency: paymentIntent.currency,
         customer: 0,
         description: paymentIntent.description,
-        id_payment_method: savePaymentMethod.id,
+        id_payment_method: savePaymentMethodawait.id,
         status: paymentIntent.status,
         id_user: req.user.userID,
         id_booking: idBooking,
