@@ -78,7 +78,7 @@ module.exports = router => {
         return res.customJson({}, 400, pi.error.message);
       }
 
-      const amount = parseInt(pi.charges.data[0].amount);
+      const amount = parseInt(booking.price_transfer);
       const amountFees = Math.floor((amount * config.fees) / 100);
       const amountTransfer = Math.ceil(amount - amountFees);
 
