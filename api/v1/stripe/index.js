@@ -155,7 +155,7 @@ module.exports = router => {
         return res.customJson({}, 400, paymentMethod.error.message);
       }
       logger.debug(`save payment method`);
-      const savePaymentMethodawait = await db.tbl_payment_method.create({
+      const savePaymentMethod = await db.tbl_payment_method.create({
         id_payment_method: paymentMethod.id,
         object: paymentMethod.object,
         billing_details: JSON.stringify(paymentMethod.billing_details),
@@ -186,7 +186,7 @@ module.exports = router => {
         currency: paymentIntent.currency,
         customer: 0,
         description: paymentIntent.description,
-        id_payment_method: savePaymentMethodawait.id,
+        id_payment_method: savePaymentMethod.id,
         status: paymentIntent.status,
         id_user: req.user.userID,
         id_booking: idBooking,
