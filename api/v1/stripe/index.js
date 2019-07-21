@@ -15,6 +15,12 @@ module.exports = router => {
     try {
       logger.info(`New refund !`);
       const { idBooking } = req.body;
+
+      if (!idBooking) {
+        logger.error(`idBooking null`);
+        return res.customJson({}, 400, 'id booking is null !');
+      }
+
       const db = getDatabaseModels('appointrip');
 
       logger.debug(`find the paymentIntent ...`);
@@ -26,6 +32,7 @@ module.exports = router => {
         logger.error(`Payment intent not found !`);
         return res.customJson({}, 400, 'Payment intent not found for this user !');
       }
+
       logger.debug(`retrieve the paymentIntent from stripe ...`);
       const intent = await retrievePaymentIntent(paymentIntent.id_payment_intent);
       if (intent.error) {
@@ -58,9 +65,9 @@ module.exports = router => {
       const db = getDatabaseModels('appointrip');
       const { idBooking } = req.body;
 
-      if (req.user.su_id === null) {
-        logger.error(`Account not connected !`);
-        return res.customJson({}, 400, 'This account is not connected !');
+      if (!idBooking) {
+        logger.error(`idBooking null`);
+        return res.customJson({}, 400, 'id booking is null !');
       }
 
       const paymentIntent = await db.tbl_payment_intent.findOne({
@@ -68,10 +75,26 @@ module.exports = router => {
         order: [['id', 'DESC']]
       });
       if (!paymentIntent) {
-        return res.customJson({}, 400, 'paymentIntent does not exist');
+        logger.error(`paymentIntent not found !`);
+        return res.customJson({}, 400, 'paymentIntent not found !');
       }
 
+      const booking = await db.tbl_bookings.findOne({ where: { id_booking: paymentIntent.id_booking } });
+      if (!booking) {
+        logger.error(`booking not found !`);
+        return res.customJson({}, 400, 'booking not found');
+      }
 
+      const userTransfer = await db.users.findOne({ where: { userID: booking.id_guide } });
+      if (!userTransfer) {
+        logger.error(`Guide not found !`);
+        return res.customJson({}, 400, 'Guide not found !');
+      }
+
+      if (!userTransfer.su_id) {
+        logger.error(`This guide is not connected !`);
+        return res.customJson({}, 400, 'This guide is not connected !');
+      }
 
       const pi = await retrievePaymentIntent(paymentIntent.id_payment_intent);
       if (pi.error) {
@@ -80,7 +103,6 @@ module.exports = router => {
         return res.customJson({}, 400, pi.error.message);
       }
 
-      const booking = await db.tbl_bookings.findOne({ where: { id_booking: paymentIntent.id_booking } });
       let amount = parseInt(booking.price_transfer) * 100;
       if (amount === 0) amount = parseInt(pi.charges.data[0].amount);
       const amountFees = Math.floor((amount * config.fees) / 100);
@@ -89,7 +111,7 @@ module.exports = router => {
       logger.debug('log transfer');
       await db.tbl_log_transfer.create({
         id_booking: paymentIntent.id_booking,
-        id_user: req.user.userID,
+        id_user: userTransfer.userID,
         id_ch: pi.charges.data[0].id,
         fees: config.fees,
         amount,
@@ -97,7 +119,7 @@ module.exports = router => {
         amount_transfer: amountTransfer
       });
 
-      const transfer = await transferConnectAccount(amountTransfer, req.user.su_id, idBooking, pi.charges.data[0].id);
+      const transfer = await transferConnectAccount(amountTransfer, userTransfer.su_id, idBooking, pi.charges.data[0].id);
       if (transfer.error) {
         logger.error(`error transfer :/`);
         console.log(transfer);
