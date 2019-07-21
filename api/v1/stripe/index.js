@@ -25,7 +25,7 @@ module.exports = router => {
 
       logger.debug(`find the paymentIntent ...`);
       const paymentIntent = await db.tbl_payment_intent.findOne({
-        where: { id_user: req.user.userID, id_booking: idBooking },
+        where: { id_booking: idBooking },
         order: [['id', 'DESC']]
       });
       if (!paymentIntent) {
