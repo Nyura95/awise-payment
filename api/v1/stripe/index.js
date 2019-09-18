@@ -85,6 +85,12 @@ module.exports = router => {
         return res.customJson({}, 400, 'booking not found');
       }
 
+      const tour = await db.tours.findOne({ where: { tourID: booking.id_tour } });
+      if (!booking) {
+        logger.error(`tour not found !`);
+        return res.customJson({}, 400, 'tour not found');
+      }
+
       const userTransfer = await db.users.findOne({ where: { userID: booking.id_guide } });
       if (!userTransfer) {
         logger.error(`Guide not found !`);
@@ -105,7 +111,7 @@ module.exports = router => {
 
       let amount = parseInt(booking.price_transfer) * 100;
       if (amount === 0) amount = parseInt(pi.charges.data[0].amount);
-      const amountFees = Math.floor((amount * config.fees) / 100);
+      const amountFees = Math.floor((amount * tour.commission_amount) / 100);
       const amountTransfer = Math.ceil(amount - amountFees);
 
       logger.debug('log transfer');
@@ -113,13 +119,18 @@ module.exports = router => {
         id_booking: paymentIntent.id_booking,
         id_user: userTransfer.userID,
         id_ch: pi.charges.data[0].id,
-        fees: config.fees,
+        fees: tour.commission_amount,
         amount,
         amount_fees: amountFees,
         amount_transfer: amountTransfer
       });
 
-      const transfer = await transferConnectAccount(amountTransfer, userTransfer.su_id, idBooking, pi.charges.data[0].id);
+      const transfer = await transferConnectAccount(
+        amountTransfer,
+        userTransfer.su_id,
+        idBooking,
+        pi.charges.data[0].id
+      );
       if (transfer.error) {
         logger.error(`error transfer :/`);
         console.log(transfer);

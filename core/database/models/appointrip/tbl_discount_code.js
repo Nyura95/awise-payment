@@ -10,8 +10,21 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		code: {
 			type: DataTypes.STRING(255),
-			allowNull: true,
+			allowNull: false,
 			defaultValue: ''
+		},
+		discount_amount: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false
+		},
+		is_fixed: {
+			type: DataTypes.INTEGER(1),
+			allowNull: false,
+			defaultValue: '0'
+		},
+		expires_at: {
+			type: DataTypes.DATE,
+			allowNull: false
 		},
 		code_qr: {
 			type: DataTypes.TEXT,
@@ -30,6 +43,10 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.TEXT,
 			allowNull: true
 		},
+		logo: {
+			type: DataTypes.TEXT,
+			allowNull: true
+		},
 		uses: {
 			type: DataTypes.INTEGER(11).UNSIGNED,
 			allowNull: true
@@ -43,12 +60,9 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true
 		},
 		type: {
-			type: DataTypes.INTEGER(3).UNSIGNED,
-			allowNull: false
-		},
-		discount_amount: {
-			type: DataTypes.INTEGER(11),
-			allowNull: true
+			type: DataTypes.STRING(255),
+			allowNull: false,
+			defaultValue: 'discount'
 		},
 		discount_amount_number: {
 			type: DataTypes.INTEGER(11),
@@ -58,21 +72,21 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(11),
 			allowNull: true
 		},
-		is_fixed: {
-			type: DataTypes.INTEGER(1),
+		is_referral: {
+			type: DataTypes.INTEGER(4),
 			allowNull: false,
-			defaultValue: '1'
+			defaultValue: '0'
 		},
 		is_welcome_code: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			defaultValue: '0'
 		},
-		starts_at: {
-			type: DataTypes.DATE,
+		history: {
+			type: DataTypes.TEXT,
 			allowNull: true
 		},
-		expires_at: {
+		starts_at: {
 			type: DataTypes.DATE,
 			allowNull: true
 		},

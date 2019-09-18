@@ -50,6 +50,11 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			defaultValue: ''
 		},
+		commission_amount: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			defaultValue: '15'
+		},
 		price: {
 			type: DataTypes.INTEGER(10),
 			allowNull: false
@@ -89,6 +94,11 @@ module.exports = function(sequelize, DataTypes) {
 		score: {
 			type: DataTypes.DECIMAL,
 			allowNull: false
+		},
+		number_reviews: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			defaultValue: '0'
 		},
 		type: {
 			type: DataTypes.STRING(255),
@@ -163,6 +173,22 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		notIncluded: {
 			type: DataTypes.TEXT,
+			allowNull: true
+		},
+		display_warning: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		display_discount: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		display_information: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		display_error: {
+			type: DataTypes.STRING(255),
 			allowNull: true
 		},
 		home_position_cat: {

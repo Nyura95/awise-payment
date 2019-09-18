@@ -38,6 +38,23 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		is_reviewed: {
 			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			defaultValue: '1'
+		},
+		f_name: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		tour_date: {
+			type: DataTypes.DATEONLY,
+			allowNull: true
+		},
+		title: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		avatar: {
+			type: DataTypes.STRING(255),
 			allowNull: true
 		},
 		created_at: {

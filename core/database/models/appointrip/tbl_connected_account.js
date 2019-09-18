@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 			autoIncrement: true
 		},
 		id_acct_stripe: {
-			type: DataTypes.INTEGER(11),
+			type: DataTypes.STRING(255),
 			allowNull: true
 		},
 		id_user: {

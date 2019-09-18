@@ -17,6 +17,26 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			defaultValue: ''
 		},
+		discount_amount: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false
+		},
+		discount_is_fixed: {
+			type: DataTypes.INTEGER(4),
+			allowNull: false
+		},
+		discount_type: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		},
+		price_paid: {
+			type: DataTypes.DECIMAL,
+			allowNull: true
+		},
+		price_discount: {
+			type: DataTypes.DECIMAL,
+			allowNull: true
+		},
 		id_booking: {
 			type: DataTypes.INTEGER(11).UNSIGNED,
 			allowNull: false
@@ -28,6 +48,14 @@ module.exports = function(sequelize, DataTypes) {
 		id_tour: {
 			type: DataTypes.INTEGER(11).UNSIGNED,
 			allowNull: false
+		},
+		month: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true
+		},
+		year: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true
 		},
 		created_at: {
 			type: DataTypes.DATE,

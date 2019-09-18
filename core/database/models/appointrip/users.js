@@ -88,6 +88,11 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.TEXT,
 			allowNull: true
 		},
+		lang: {
+			type: DataTypes.STRING(255),
+			allowNull: true,
+			defaultValue: 'en'
+		},
 		languages: {
 			type: DataTypes.TEXT,
 			allowNull: true
@@ -107,6 +112,11 @@ module.exports = function(sequelize, DataTypes) {
 		wishList: {
 			type: DataTypes.TEXT,
 			allowNull: true
+		},
+		currency: {
+			type: DataTypes.STRING(255),
+			allowNull: false,
+			defaultValue: 'USD'
 		},
 		username: {
 			type: DataTypes.STRING(255),
@@ -140,6 +150,15 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(5),
 			allowNull: false,
 			defaultValue: '0'
+		},
+		is_hotel_mode_kiosk: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true,
+			defaultValue: '0'
+		},
+		account_type: {
+			type: DataTypes.STRING(255),
+			allowNull: true
 		},
 		discount_code: {
 			type: DataTypes.STRING(11),
